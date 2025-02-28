@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>harry figuron Portfolio</title>
+  <!-- SweetAlert2 CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    /* CSS Variables for easier customization */
+    :root {
+      --primary-color: #00bcd4;
+      --secondary-color: rgba(51, 51, 51, 0.8);
+      --accent-color: rgba(224, 224, 224, 0.7);
+      --text-color: #fff;
+      --bg-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+    }
+
+    body {
+      font-family: 'Arial', sans-serif;
+      background: url('R.jpg') center/cover no-repeat;
+      background-attachment: fixed;
+      color: var(--text-color);
+      overflow-x: hidden;
+    }
+
+    /* Parallax effect */
+    .parallax {
+      background-image: url('R.jpg');
+      min-height: 100vh; /* Full screen */
+      background-attachment: fixed; /* Parallax scrolling effect */
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+
+    header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      text-align: center;
+      z-index: 10;
+      font-size: 1.2rem;
+      color: var(--text-color);
+      background-color: var(--secondary-color);
+      padding: 10px 0;
+      opacity: 0.9;
+    }
+
+    nav ul {
+      display: flex;
+      justify-content: center;
+      list-style-type: none;
+      padding: 0;
+    }
+
+    nav ul li {
+      margin: 0 1.5rem;
+    }
+
+    nav ul li a {
+      color: var(--text-color);
+      text-decoration: none;
+      font-weight: bold;
+      transition: color 0.3s ease-in-out;
+    }
+
+    nav ul li a:hover {
+      color: var(--primary-color);
+    }
+
+    /* Smooth Scroll */
+    html {
+      scroll-behavior: smooth;
+    }
+
+    /* Hero Section */
+    .hero {
+      position: relative;
+      background: rgba(0, 0, 0, 0.5); /* Transparent overlay */
+      color: var(--text-color);
+      height: 100vh;
+      text-align: center;
+      padding-top: 20vh;
+      overflow: hidden;
+    }
+
+    .hero h1 {
+      font-size: 5rem;
+      margin-bottom: 20px;
+      letter-spacing: 10px;
+      text-transform: uppercase;
+      text-shadow: 4px 4px 6px rgba(0, 0, 0, 0.8);
+      animation: fadeIn 1s ease-out;
+    }
+
+    .hero p {
+      font-size: 1.5rem;
+      margin-bottom: 30px;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+      animation: fadeIn 2s ease-out;
+    }
+
+    .hero button {
+      padding: 20px 40px;
+      background-color: var(--primary-color);
+      border: none;
+      font-size: 1.2rem;
+      color: var(--text-color);
+      border-radius: 50px;
+      cursor: pointer;
+      transition: transform 0.3s ease-in-out, background-color 0.3s ease;
+    }
+
+    .hero button:hover {
+      transform: scale(1.1);
+      background-color: #0288d1;
+    }
+
+    /* About Me Section */
+    .about {
+      background-color: rgba(51, 51, 51, 0.5); /* More transparent */
+      color: var(--text-color);
+      padding: 70px 20px;
+      text-align: center;
+      z-index: 5;
+      opacity: 0.8; /* More transparent */
+    }
+
+    .about h2 {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+      letter-spacing: 2px;
+      animation: slideInFromLeft 1s ease-out;
+    }
+
+    .about p {
+      font-size: 1.2rem;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+      margin-bottom: 40px;
+      animation: fadeIn 2s ease-out;
+    }
+
+    .about .container {
+      position: relative;
+      z-index: 6;
+    }
+
+    .about img {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+      object-fit: cover;
+      transform: rotate(15deg);
+      margin-bottom: 30px;
+      transition: transform 0.3s ease;
+    }
+
+    .about img:hover {
+      transform: rotate(0deg);
+    }
+
+    /* Projects Section */
+    .projects {
+      background-color: rgba(224, 224, 224, 0.5); /* More transparent */
+      padding: 80px 20px;
+      text-align: center;
+      animation: fadeIn 2s ease-out;
+      opacity: 0.8; /* More transparent */
+    }
+
+    .projects h2 {
+      font-size: 2.5rem;
+      margin-bottom: 40px;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      animation: slideInFromLeft 1s ease-out;
+    }
+
+    .project-item {
+      display: inline-block;
+      width: 45%;
+      background-color: var(--text-color);
+      margin: 20px;
+      padding: 30px;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+      border-radius: 12px;
+      transform: rotate(-5deg);
+      transition: transform 0.3s ease-in-out;
+      position: relative;
+      overflow: hidden;
+      opacity: 0.8;
+    }
+
+    .project-item:hover {
+      transform: rotate(0deg);
+    }
+
+    .project-placeholder {
+      background-color: #bbb;
+      height: 180px;
+      margin-bottom: 20px;
+      transition: background-color 0.3s ease;
+    }
+
+    .project-item:hover .project-placeholder {
+      background-color: #e0e0e0;
+    }
+
+    .project-details h3 {
+      font-size: 1.8rem;
+      margin-bottom: 15px;
+    }
+
+    .project-details p {
+      font-size: 1.1rem;
+    }
+
+    /* Skills Section */
+    .skills {
+      background-color: rgba(0, 0, 0, 0.4); /* Even more transparent */
+      padding: 80px 20px;
+      text-align: center;
+      opacity: 0.8; /* More transparent */
+    }
+
+    .skills h2 {
+      font-size: 2.5rem;
+      margin-bottom: 40px;
+      text-transform: uppercase;
+      color: var(--text-color);
+    }
+
+    .skill-item {
+      display: inline-block;
+      width: 30%;
+      background-color: var(--primary-color);
+      color: var(--text-color);
+      padding: 20px;
+      border-radius: 12px;
+      margin: 10px;
+      transform: rotate(10deg);
+      transition: transform 0.3s ease-in-out;
+      position: relative;
+    }
+
+    .skill-item:hover {
+      transform: rotate(0deg);
+    }
+
+    .skill-item .skill-name {
+      font-size: 1.3rem;
+      margin-bottom: 10px;
+    }
+
+    .skill-item .skill-level {
+      font-size: 1.1rem;
+    }
+
+    /* Footer */
+    footer {
+      background-color: var(--secondary-color);
+      color: var(--text-color);
+      text-align: center;
+      padding: 40px 20px;
+      position: relative;
+      opacity: 0.9;
+    }
+
+    footer p {
+      font-size: 1.1rem;
+    }
+
+    .contact-info ul {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    .contact-info ul li {
+      margin: 10px 0;
+    }
+
+    .contact-info ul li a {
+      color: var(--text-color);
+      text-decoration: none;
+      font-size: 1.2rem;
+      transition: color 0.3s ease-in-out;
+    }
+
+    .contact-info ul li a:hover {
+      color: var(--primary-color);
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+      0% { opacity: 0; }
+      100% { opacity: 1; }
+    }
+
+    @keyframes slideInFromLeft {
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(0); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <nav>
+      <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Hero Section -->
+  <section id="home" class="hero parallax">
+    <div class="container">
+      <h1>harry figuron's Portfolio</h1>
+      <p>Explore my world of coding, creativity, and the beauty of web development.</p>
+      <button onclick="showSweetAlert()">Explore</button>
+    </div>
+  </section>
+
+  <!-- About Me Section -->
+  <section id="about" class="about">
+    <div class="container">
+      <img src="OIP.jpg" alt="harry figuron">
+      <h2>About Me</h2>
+      <p>I'm harry figuron, a web developer fascinated by the paradoxes of the digital world. With experience in HTML, CSS, JavaScript, and a passion for making websites come alive, I'm constantly seeking new challenges in the tech space.</p>
+    </div>
+  </section>
+
+  <!-- Projects Section -->
+  <section id="projects" class="projects">
+    <h2>My Projects</h2>
+    <div class="project-item">
+      <div class="project-placeholder"></div>
+      <div class="project-details">
+        <h3>Project 1</h3>
+        <p>This project is about creating a responsive, interactive website using modern web technologies.</p>
+      </div>
+    </div>
+    <div class="project-item">
+      <div class="project-placeholder"></div>
+      <div class="project-details">
+        <h3>Project 2</h3>
+        <p>This project showcases my ability to integrate dynamic content with user-friendly interfaces.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Skills Section -->
+  <section id="skills" class="skills">
+    <h2>My Skills</h2>
+    <div class="skill-item">
+      <div class="skill-name">Video Editing
+      </div>
+    </div>
+    <div class="skill-item">
+      <div class="skill-name">Front-end development</div>
+    </div>
+    <div class="skill-item">
+      <div class="skill-name">Gaming</div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer id="contact">
+    <p>&copy; 2025 harry figuron. All Rights Reserved.</p>
+    <div class="contact-info">
+      <p>Contact Me:</p>
+      <ul>
+        <li><a href="mailto:harryfiguron@gmail.com">Email: harryfiguron@gmail.com</a></li>
+        <li><a href="tel:+1234567890">Phone: +63 0915 711-0329</a></li>
+        <li><a href="https://www.linkedin.com/in/danharry12">LinkedIn</a></li>
+        <li><a href="https://github.com/danharry12">GitHub</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <script>
+    // SweetAlert function triggered on button click
+    function showSweetAlert() {
+      Swal.fire({
+        title: 'Welcome to the harry Portfolio!',
+        text: 'You are now exploring the creative world of web development.',
+        icon: 'info', // You can choose different icons like 'success', 'error', etc.
+        confirmButtonText: 'Let\'s go!',
+        background: '#f0f0f0', // Optional background color
+        iconColor: '#00bcd4', // Icon color to match your theme
+        confirmButtonColor: '#0288d1', // Button color
+      });
+    }
+  </script>
+
+</body>
+</html>
